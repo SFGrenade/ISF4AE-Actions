@@ -16,8 +16,10 @@ jobs:
           arch: x64
 
       - name: Get zip
-        run: wget https://files.hk-modding.org/aesdk_oct21_win.zip
-        shell: bash
+        uses: foxtrotperry/fetch-file-action@v0
+        with:
+          url: https://files.hk-modding.org/aesdk_oct21_win.zip
+          filename: aesdk_oct21_win.zip
 
       - name: Unzip zip
         uses: hoatruongdev09/extract-zip-github-action@v1.2
