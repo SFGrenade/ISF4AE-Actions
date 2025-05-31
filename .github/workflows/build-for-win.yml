@@ -71,8 +71,8 @@ jobs:
           mkdir ../../../../__build
           echo "AE_PLUGIN_BUILD_DIR=../../../../__build" >> $GITHUB_ENV
           cp "VVISF-GL/external/GLEW/win_x64/glew32.dll" "/c/Windows/System32/" >> $GITHUB_ENV
-          tr -d '\15\32' < VVISF-GL-Submodule.patch > VVISF-GL-Submodule.unix.patch
-          git apply VVISF-GL-Submodule.unix.patch
+          tr -d '\15\32' < VVISF-GL-Submodule.143.patch > VVISF-GL-Submodule.143.unix.patch
+          git apply VVISF-GL-Submodule.143.unix.patch
         shell: bash
         working-directory: aesdk_oct21_win/AfterEffectsSDK/Examples/ISF4AE
 
