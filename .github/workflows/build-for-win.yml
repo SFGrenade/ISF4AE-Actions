@@ -76,6 +76,11 @@ jobs:
         shell: bash
         working-directory: aesdk_oct21_win/AfterEffectsSDK/Examples/ISF4AE
 
+      - name: Set up Visual Studio shell
+        uses: egor-tensin/vs-shell@v2
+        with:
+          arch: 'x64'
+
       - name: Add msbuild to PATH
         uses: microsoft/setup-msbuild@v2
 
