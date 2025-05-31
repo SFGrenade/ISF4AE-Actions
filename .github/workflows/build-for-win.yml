@@ -13,34 +13,34 @@ jobs:
       - name: Set up Visual Studio shell
         uses: egor-tensin/vs-shell@v2
         with:
-          arch: x64
+          arch: 'x64'
 
       - name: Get zip
         uses: FoxtrotPerry/fetch-file-action@v0-alpha
         with:
-          url: https://files.hk-modding.org/aesdk_oct21_win.zip
-          filename: aesdk_oct21_win.zip
+          url: 'https://files.hk-modding.org/aesdk_oct21_win.zip'
+          filename: 'aesdk_oct21_win.zip'
 
       - name: Unzip zip
         uses: hoatruongdev09/extract-zip-github-action@v1.2
         with:
-          input-path: aesdk_oct21_win.zip
-          output-path: aesdk_oct21_win
+          input-path: 'aesdk_oct21_win.zip'
+          output-path: '${{ github.workspace }}/aesdk_oct21_win'
 
       - name: Set up boost
         id: boost-install
         uses: egor-tensin/build-boost@v1.4
         with:
-          version: 1.87.0
+          version: '1.87.0'
           #libraries: 'filesystem program_options system'
           libraries: '' # all of them?
-          toolsset: msvc
+          toolsset: 'msvc'
 
       - name: Set up cuda
         id: cuda-install
         uses: Jimver/cuda-toolkit@v0.2.23
         with:
-          cuda: 10.2.89
+          cuda: '10.2.89'
 
       - name: Set system envs
         run: |
@@ -51,9 +51,9 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
         with:
-          ref: main
-          path: aesdk_oct21_win/AfterEffectsSDK/Examples/ISF4AE
-          submodules: recursive
+          ref: 'main'
+          path: 'aesdk_oct21_win/AfterEffectsSDK/Examples/ISF4AE'
+          submodules: 'recursive'
 
       - name: Set more system envs
         run: |
