@@ -1,0 +1,59 @@
+name: Windows - Build and artifact
+
+on:
+  push:
+    branches: [ 'main' ]
+    tags: [ '*' ]
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+      - name: Set up Visual Studio shell
+        uses: egor-tensin/vs-shell@v2
+        with:
+          arch: x64
+
+      - name: Get zip
+        run: wget https://files.hk-modding.org/aesdk_oct21_win.zip
+        shell: bash
+
+      - name: Unzip zip
+        uses: hoatruongdev09/extract-zip-github-action@v1
+        with:
+          input-path: aesdk_oct21_win.zip
+          output-path: aesdk_oct21_win
+
+      - name: Set up boost
+        id: boost-install
+        uses: egor-tensin/build-boost@v1
+        with:
+          version: 1.87.0
+          #libraries: 'filesystem program_options system'
+          libraries: '' # all of them?
+          toolsset: msvc
+
+      - name: Set up cuda
+        id: cuda-install
+        uses: Jimver/cuda-toolkit@v0.2.23
+        with:
+          cuda: 10.2.89
+
+      - name: Set system env
+        run: |
+          echo "CUDA_SDK_BASE_PATH=${{ steps.cuda-install.outputs.CUDA_PATH }}" >> $GITHUB_ENV
+          echo "BOOST_BASE_PATH=${{ steps.boost-install.outputs.root }}" >> $GITHUB_ENV
+        shell: bash
+
+      - name: Build zip contents
+        run: msbuild BuildAll.sln
+        shell: bash
+        working-directory: aesdk_oct21_win/AfterEffectsSDK/Examples
+
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          path: main
+          submodules: recursive
