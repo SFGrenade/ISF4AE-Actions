@@ -10,11 +10,6 @@ jobs:
     runs-on: windows-latest
 
     steps:
-      - name: Set up Visual Studio shell
-        uses: egor-tensin/vs-shell@v2
-        with:
-          arch: 'x64'
-
       - name: Get zip
         uses: FoxtrotPerry/fetch-file-action@v0-alpha
         with:
@@ -80,6 +75,9 @@ jobs:
           git apply VVISF-GL-Submodule.unix.patch
         shell: bash
         working-directory: aesdk_oct21_win/AfterEffectsSDK/Examples/ISF4AE
+
+      - name: Add msbuild to PATH
+        uses: microsoft/setup-msbuild@v2
 
       - name: Build zip contents
         run: msbuild BuildAll.sln
