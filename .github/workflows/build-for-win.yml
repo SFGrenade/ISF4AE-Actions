@@ -81,7 +81,7 @@ jobs:
 
       - name: Build zip contents
         run: msbuild BuildAll.sln
-        shell: bash
+        #shell: bash
         working-directory: aesdk_oct21_win/AfterEffectsSDK/Examples
 
       - name: Upload artifact
