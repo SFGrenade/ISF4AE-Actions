@@ -16,7 +16,7 @@ jobs:
           arch: x64
 
       - name: Get zip
-        uses: foxtrotperry/fetch-file-action@v0
+        uses: FoxtrotPerry/fetch-file-action@v0-alpha
         with:
           url: https://files.hk-modding.org/aesdk_oct21_win.zip
           filename: aesdk_oct21_win.zip
