@@ -27,19 +27,23 @@ jobs:
           input-path: 'aesdk_oct21_win.zip'
           output-path: '${{ github.workspace }}/aesdk_oct21_win'
 
-      - name: Make boost dir
-        run: mkdir boost
-        shell: bash
-        #working-directory: ?
+      #- name: Make boost dir
+      #  run: mkdir boost
+      #  shell: bash
+      #  working-directory: ${{ github.workspace }}
+
+      #- name: Set up boost
+      #  id: boost-install
+      #  uses: johnwason/vcpkg-action@v6
+      #  with:
+      #    pkgs: boost
+      #    triplet: x64-windows-release
 
       - name: Set up boost
         id: boost-install
-        uses: egor-tensin/build-boost@v1.4
-        with:
-          version: '1.87.0'
-          #libraries: 'filesystem program_options system'
-          libraries: '' # all of them?
-          toolset: 'msvc'
+        run: vcpkg install boost:x64-windows-release
+        shell: bash
+        #working-directory: ?
 
       - name: Set up cuda
         id: cuda-install
@@ -47,10 +51,16 @@ jobs:
         with:
           cuda: '10.2.89'
 
+      #- name: Set system envs
+      #  run: |
+      #    echo "CUDA_SDK_BASE_PATH=${{ steps.cuda-install.outputs.CUDA_PATH }}" >> $GITHUB_ENV
+      #    echo "BOOST_BASE_PATH=${{ steps.boost-install.outputs.root }}" >> $GITHUB_ENV
+      #  shell: bash
+      #  #working-directory: ?
+
       - name: Set system envs
         run: |
           echo "CUDA_SDK_BASE_PATH=${{ steps.cuda-install.outputs.CUDA_PATH }}" >> $GITHUB_ENV
-          echo "BOOST_BASE_PATH=${{ steps.boost-install.outputs.root }}" >> $GITHUB_ENV
         shell: bash
         #working-directory: ?
 
